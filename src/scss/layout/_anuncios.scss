@@ -1,0 +1,319 @@
+@include tablet {
+    .contenedor-anuncios {
+        @include grid(3, 2rem);
+        justify-content: center;
+    }
+}
+
+.anuncio {
+    background-color: lighten($gris, 5);
+    border: 1px solid darken($gris, 10);
+    margin-bottom: 2rem;
+
+    .contenido-anuncio {
+        padding: 2rem;
+    }
+
+    h3, p {
+        margin: 0;
+    }
+
+}
+.precio {
+    color:$verde;
+    font-weight: $bold;
+    font-size: 3rem;
+}
+
+/* .iconos-caracteristicas {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    max-width: 40rem;
+    gap: 9rem;
+
+    li {
+        //flex: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+
+        img {
+            flex: 0 0 5rem;
+            margin-right: 1rem;
+        }
+        p {
+            font-weight: $black;
+        }
+    } 
+}*/
+
+/* .iconos-caracteristicas {
+    display: flex;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+        flex: 1; // 🔥 hace que todos tengan el mismo ancho
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        background-color: #f5f5f5;
+        border-radius: 1.2rem;
+        padding: 1.2rem 1rem;
+
+        min-height: 5rem; // 🔥 misma altura siempre
+
+        transition: all 0.25s ease;
+
+        &:hover {
+            background-color: #ececec;
+            transform: translateY(-2px);
+        }
+
+        img {
+            width: 2.4rem;
+            height: 2.4rem;
+        }
+
+        span {
+            font-weight: 600;
+            font-size: 1.6rem;
+        }
+    }
+} */
+
+.iconos-caracteristicas {
+    display: flex;
+    gap: 1.2rem;
+    margin: 2rem 0;
+    padding: 0;
+    list-style: none;
+
+    .caracteristica {
+        flex: 1;
+        min-height: 5.6rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .9rem;
+
+        background: #ffffff;
+        border: 1px solid #e6e6e6;
+        border-radius: 1.4rem;
+        box-shadow: 0 .8rem 2rem rgba(0, 0, 0, .06);
+
+        transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+
+        img {
+            width: 2.4rem;
+            height: 2.4rem;
+            object-fit: contain;
+            opacity: .8;
+            transition: transform .25s ease, opacity .25s ease;
+        }
+
+        span {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        &:hover {
+            transform: translateY(-.4rem);
+            box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, .1);
+            border-color: #d6d6d6;
+
+            img {
+                transform: scale(1.12);
+                opacity: 1;
+            }
+        }
+    }
+
+    .caracteristica--wc:hover {
+        border-color: #60a5fa;
+    }
+
+    .caracteristica--parking:hover {
+        border-color: #34d399;
+    }
+
+    .caracteristica--habitaciones:hover {
+        border-color: #f59e0b;
+    }
+}
+
+.detalle-propiedad {
+    max-width: 110rem;
+
+    h1 {
+        max-width: 86rem;
+        margin: 0 auto 3rem;
+        color: $grisOscuro;
+        font-weight: $regular;
+        line-height: 1.2;
+    }
+
+    &__etiqueta {
+        display: block;
+        width: fit-content;
+        margin: 0 auto 1.2rem;
+        padding: .5rem 1.4rem;
+        color: darken($verde, 12);
+        background-color: lighten($verde, 55);
+        border: 1px solid lighten($verde, 35);
+        border-radius: 999px;
+        font-size: 1.4rem;
+        font-weight: $bold;
+        letter-spacing: 0;
+        text-transform: uppercase;
+    }
+
+    &__imagen {
+        overflow: hidden;
+        border-radius: .8rem;
+        box-shadow: 0 2rem 5rem rgba($negro, .14);
+
+        img {
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+    }
+}
+
+.resumen-propiedad {
+    position: relative;
+    width: min(100%, 92rem);
+    margin: -4rem auto 0;
+    padding: 2.4rem;
+    background-color: $blanco;
+    border: 1px solid lighten($gris, 4);
+    border-radius: .8rem;
+    box-shadow: 0 1.6rem 4rem rgba($negro, .1);
+
+    @include tablet {
+        padding: 3.2rem;
+    }
+
+    &__encabezado {
+        display: flex;
+        flex-direction: column;
+        gap: .6rem;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid lighten($gris, 4);
+
+        @include tablet {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .precio {
+            margin: 0;
+            font-size: clamp(3rem, 4vw, 4.2rem);
+            line-height: 1;
+        }
+    }
+
+    &__subtitulo {
+        margin: 0;
+        color: lighten($grisOscuro, 18);
+        font-size: 1.5rem;
+        font-weight: $bold;
+        text-transform: uppercase;
+    }
+
+    .iconos-caracteristicas {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        margin: 2.4rem 0;
+
+        @include tablet {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .caracteristica {
+            justify-content: flex-start;
+            min-height: 8rem;
+            padding: 1.5rem;
+            border-radius: .8rem;
+
+            p {
+                margin: 0;
+                color: lighten($grisOscuro, 20);
+                font-size: 1.4rem;
+                line-height: 1.2;
+            }
+
+            span {
+                display: block;
+                margin-bottom: .3rem;
+                font-size: 2.4rem;
+                line-height: 1;
+            }
+        }
+    }
+
+    &__descripcion {
+        h2 {
+            margin: 0 0 1.2rem;
+            color: $grisOscuro;
+            font-size: 2.8rem;
+            font-weight: $regular;
+            text-align: left;
+        }
+
+        p {
+            margin: 0;
+            color: lighten($grisOscuro, 8);
+        }
+    }
+}
+
+.dark-mode {
+    .detalle-propiedad {
+        h1 {
+            color: $blanco;
+        }
+
+        &__etiqueta {
+            color: lighten($verde, 35);
+            background-color: rgba($verde, .12);
+            border-color: rgba($verde, .35);
+        }
+    }
+
+    .resumen-propiedad {
+        border-color: lighten($grisOscuro, 8);
+        box-shadow: 0 1.6rem 4rem rgba($negro, .35);
+
+        &__encabezado {
+            border-bottom-color: lighten($grisOscuro, 10);
+        }
+
+        &__subtitulo,
+        &__descripcion h2,
+        &__descripcion p {
+            color: $blanco;
+        }
+
+        .iconos-caracteristicas .caracteristica {
+            background-color: lighten($grisOscuro, 4);
+            border-color: lighten($grisOscuro, 12);
+
+            span,
+            p {
+                color: $blanco;
+            }
+        }
+    }
+}

@@ -1,0 +1,299 @@
+.encabezado-seccion {
+    max-width: 76rem;
+    margin: 0 auto 3.5rem;
+    text-align: center;
+
+    h1,
+    h2,
+    h3 {
+        margin: .5rem 0 1rem;
+        color: $grisOscuro;
+        font-weight: $regular;
+        line-height: 1.2;
+    }
+
+    p:not(.eyebrow) {
+        margin: 0;
+        color: lighten($grisOscuro, 18);
+    }
+
+    &--izquierda {
+        margin-left: 0;
+        text-align: left;
+    }
+}
+
+.eyebrow {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    color: darken($verde, 12);
+    font-size: 1.4rem;
+    font-weight: $bold;
+    letter-spacing: 0;
+    text-transform: uppercase;
+
+    .encabezado-seccion--izquierda &,
+    .entrada-detalle & {
+        margin-left: 0;
+    }
+}
+
+.imagen-destacada,
+.contacto-layout__imagen,
+.entrada-detalle__imagen {
+    overflow: hidden;
+    border-radius: .8rem;
+    box-shadow: 0 1.6rem 4rem rgba($negro, .12);
+
+    img {
+        aspect-ratio: 16 / 11;
+        object-fit: cover;
+    }
+}
+
+.pagina-inicio {
+    .iconos-nosotros {
+        margin-top: 0;
+    }
+}
+
+.contenido-nosotros {
+    align-items: center;
+}
+
+.texto-nosotros {
+    blockquote {
+        color: $grisOscuro;
+        line-height: 1.25;
+    }
+
+    p {
+        color: lighten($grisOscuro, 10);
+    }
+}
+
+.imagen-contacto {
+    position: relative;
+    isolation: isolate;
+    align-items: stretch;
+    padding: 7rem 0;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(90deg, rgba($negro, .72), rgba($negro, .28));
+    }
+
+    &__contenido {
+        text-align: left;
+
+        .eyebrow {
+            margin-left: 0;
+            color: lighten($verde, 35);
+        }
+    }
+
+    h2,
+    p {
+        max-width: 64rem;
+        text-align: left;
+    }
+
+    h2 {
+        margin-bottom: 1rem;
+        line-height: 1.15;
+    }
+
+    .boton-amarillo {
+        margin-top: 2rem;
+    }
+}
+
+.blog-listado {
+    max-width: 112rem;
+
+    &__grid {
+        display: grid;
+        gap: 2.4rem;
+
+        @include tablet {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+.entrada-blog {
+    .imagen {
+        overflow: hidden;
+        border-radius: .8rem;
+
+        img {
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            transition: transform .3s ease;
+        }
+    }
+
+    &:hover {
+        .imagen img {
+            transform: scale(1.04);
+        }
+    }
+
+    &--tarjeta {
+        display: block;
+        margin-bottom: 0;
+        overflow: hidden;
+        background-color: $blanco;
+        border: 1px solid lighten($gris, 4);
+        border-radius: .8rem;
+        box-shadow: 0 1rem 3rem rgba($negro, .08);
+
+        .imagen {
+            border-radius: 0;
+        }
+
+        .texto-entrada {
+            padding: 2rem;
+
+            a {
+                margin-top: 0;
+            }
+
+            h2 {
+                margin: .6rem 0 1rem;
+                color: $grisOscuro;
+                font-size: 2.6rem;
+                font-weight: $regular;
+                line-height: 1.2;
+                text-align: left;
+            }
+
+            p {
+                margin: 0;
+                color: lighten($grisOscuro, 12);
+            }
+        }
+    }
+}
+
+.blog--resumen {
+    .entrada-blog {
+        padding: 1.4rem;
+        background-color: $blanco;
+        border: 1px solid lighten($gris, 4);
+        border-radius: .8rem;
+        box-shadow: 0 1rem 3rem rgba($negro, .06);
+    }
+}
+
+.entrada-detalle {
+    max-width: 86rem;
+
+    h1 {
+        margin-top: .5rem;
+        margin-bottom: 1rem;
+        color: $grisOscuro;
+        font-weight: $regular;
+        line-height: 1.15;
+        text-align: left;
+    }
+
+    .informacion-meta {
+        margin-bottom: 2rem;
+        color: lighten($grisOscuro, 15);
+    }
+
+    &__contenido {
+        margin-top: 3rem;
+        padding: 3rem;
+        background-color: $blanco;
+        border: 1px solid lighten($gris, 4);
+        border-radius: .8rem;
+        box-shadow: 0 1rem 3rem rgba($negro, .07);
+
+        p {
+            color: lighten($grisOscuro, 8);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.contacto-layout {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+
+    @include desktop {
+        grid-template-columns: .9fr 1.1fr;
+    }
+}
+
+.formulario-contacto {
+    padding: 2.4rem;
+    background-color: $blanco;
+    border: 1px solid lighten($gris, 4);
+    border-radius: .8rem;
+    box-shadow: 0 1rem 3rem rgba($negro, .08);
+
+    @include tablet {
+        padding: 3rem;
+    }
+
+    fieldset {
+        margin-bottom: 2rem;
+        border-color: lighten($gris, 2);
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.pagina-propiedades {
+    .contenedor-anuncios {
+        margin-top: 1rem;
+    }
+}
+
+.dark-mode {
+    .encabezado-seccion {
+        h1,
+        h2,
+        h3,
+        p:not(.eyebrow) {
+            color: $gris;
+        }
+    }
+
+    .eyebrow {
+        color: lighten($verde, 28);
+    }
+
+    .texto-nosotros p,
+    .entrada-detalle .informacion-meta {
+        color: $gris;
+    }
+
+    .icono,
+    .entrada-blog--tarjeta,
+    .blog--resumen .entrada-blog,
+    .entrada-detalle__contenido,
+    .formulario-contacto {
+        background-color: $grisOscuro;
+        border-color: lighten($grisOscuro, 10);
+    }
+
+    .entrada-blog--tarjeta .texto-entrada h2,
+    .entrada-blog--tarjeta .texto-entrada p,
+    .entrada-detalle h1,
+    .entrada-detalle__contenido p {
+        color: $gris;
+    }
+}
