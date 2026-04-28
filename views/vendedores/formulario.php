@@ -1,5 +1,5 @@
 <fieldset>
-    <legend>Informacion general</legend>
+    <legend>Información general</legend>
 
     <label for="nombre">Nombre</label>
     <input
@@ -19,13 +19,13 @@
 </fieldset>
 
 <fieldset>
-    <legend>Informacion de contacto</legend>
+    <legend>Información de contacto</legend>
 
-    <label for="telefono">Telefono</label>
+    <label for="telefono">Teléfono</label>
     <input
         type="tel"
         id="telefono"
         name="vendedor[telefono]"
-        placeholder="Telefono del vendedor"
+        placeholder="Teléfono del vendedor"
         value="<?php echo s($vendedor->telefono); ?>">
 </fieldset>

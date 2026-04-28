@@ -1,13 +1,14 @@
 <?php
-    $titulo = htmlspecialchars($propiedad->titulo, ENT_QUOTES, 'UTF-8');
-    $imagen = htmlspecialchars($propiedad->imagen, ENT_QUOTES, 'UTF-8');
-    $descripcion = nl2br(htmlspecialchars($propiedad->descripcion, ENT_QUOTES, 'UTF-8'));
+    /** @var \Model\Propiedad $propiedad */
+    $titulo = s($propiedad->titulo);
+    $imagen = s($propiedad->imagen);
+    $descripcion = nl2br(s($propiedad->descripcion));
     $precio = is_numeric($propiedad->precio)
         ? number_format((float) $propiedad->precio, 0, '.', ',')
-        : htmlspecialchars($propiedad->precio, ENT_QUOTES, 'UTF-8');
-    $wc = htmlspecialchars($propiedad->wc, ENT_QUOTES, 'UTF-8');
-    $estacionamiento = htmlspecialchars($propiedad->estacionamiento, ENT_QUOTES, 'UTF-8');
-    $habitaciones = htmlspecialchars($propiedad->habitaciones, ENT_QUOTES, 'UTF-8');
+        : s($propiedad->precio);
+    $wc = s($propiedad->wc);
+    $estacionamiento = s($propiedad->estacionamiento);
+    $habitaciones = s($propiedad->habitaciones);
 ?>
 
 <main class="contenedor seccion contenido-centrado detalle-propiedad">
@@ -51,7 +52,7 @@
         </ul>
 
         <div class="resumen-propiedad__descripcion">
-            <h2>Descripcion</h2>
+            <h2>Descripci&oacute;n</h2>
             <p><?php echo $descripcion; ?></p>
         </div>
     </section>

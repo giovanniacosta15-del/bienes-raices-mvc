@@ -5,8 +5,7 @@ namespace Model;
 class Propiedad extends ActiveRecord {
     
     protected static $tabla = 'propiedades';
-    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado',
-    'vendedores_id'];
+    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id'];
 
     public $id;
     public $titulo;
@@ -19,7 +18,7 @@ class Propiedad extends ActiveRecord {
     public $creado;
     public $vendedores_id;
 
-     public function __construct($args = [])
+    public function __construct($args = [])
     {
        $this->id = $args['id'] ?? null;
        $this->titulo = $args['titulo'] ?? '';
@@ -34,28 +33,30 @@ class Propiedad extends ActiveRecord {
     }
 
     public function validar() {
+        self::$errores = [];
+
         if(!$this->titulo) {
-            self::$errores[] = "Debes añadir un titulo";
+            self::$errores[] = "Debes añadir un título";
         }
 
         if(!$this->precio) {
-            self::$errores[] = "El precio es Obligatorio";
+            self::$errores[] = "El precio es obligatorio";
         }
 
-        if( strlen( $this->descripcion ) < 50 ) {
-            self::$errores[] = "La Descripción es Obligatoria y debe tener al menos 50 caracteres";
+        if(strlen($this->descripcion) < 50) {
+            self::$errores[] = "La descripción es obligatoria y debe tener al menos 50 caracteres";
         }
 
         if(!$this->habitaciones) {
-            self::$errores[] = "El número de habitaciones es Obligatorio";
+            self::$errores[] = "El número de habitaciones es obligatorio";
         }
 
         if(!$this->wc) {
-            self::$errores[] = "El número de baños es Obligatorio";
+            self::$errores[] = "El número de baños es obligatorio";
         }
 
         if(!$this->estacionamiento) {
-            self::$errores[] = "El número lugares de Estacionamiento es Obligatorio";
+            self::$errores[] = "El número de lugares de estacionamiento es obligatorio";
         }
 
         if(!$this->vendedores_id) {
@@ -63,9 +64,8 @@ class Propiedad extends ActiveRecord {
         }
 
         if(!$this->imagen) {
-            self::$errores[] = 'La Imagen es Obligatoria';
+            self::$errores[] = 'La imagen es obligatoria';
         }
-
 
         return self::$errores;
     }

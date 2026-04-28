@@ -2,14 +2,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 
     @include tablet {
         align-items: flex-end;
+        width: auto;
     }
 
     .dark-mode-boton {
-        width: 3rem;
+        width: 2.6rem;
         filter: invert(100%);
+        opacity: .86;
 
         &:hover {
             cursor: pointer;
@@ -39,7 +42,7 @@
     }
 
     &:focus-visible {
-        outline: 2px solid $verde;
+        outline: 2px solid $amarillo;
         outline-offset: .5rem;
     }
 }
@@ -55,13 +58,23 @@
 
 .barra {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    padding-top: 3rem;
+    padding-top: 2.2rem;
+
     @include tablet {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-end;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .logo img {
+        max-width: 17rem;
+
+        @include tablet {
+            max-width: 19rem;
+        }
     }
 }
 
@@ -80,34 +93,49 @@
     }
 
     a {
-        color: $blanco;
+        color: rgba($blanco, .88);
         text-decoration: none;
-        font-size: 2.2rem;
+        font-size: 2rem;
+        font-weight: 600;
         display: block;
         text-align: center;
+        padding: .7rem 0;
+        transition: color .2s ease;
 
         @include tablet {
-            margin-right: 2rem;
-            font-size: 1.8rem;
+            margin-right: 2.4rem;
+            font-size: 1.5rem;
+            padding: .5rem 0;
 
             &:last-of-type {
                 margin-right: 0;
             }
+        }
+
+        &:hover {
+            color: $blanco;
         }
     }
 }
 
 /** Menu de Hamburguesa **/
 .mobile-menu {
-    margin-top: 2rem;
+    display: grid;
+    width: 4.8rem;
+    height: 4.8rem;
+    place-items: center;
+    margin-top: 0;
+    border: 1px solid rgba($blanco, .18);
+    border-radius: .6rem;
+    background-color: rgba($blanco, .08);
 
     @include tablet {
         display: none;
     }
 
     img {
-        width: 5rem;
-
+        width: 2.8rem;
+        filter: invert(100%);
     }
 }
 
@@ -115,4 +143,6 @@
     visibility: visible;
     opacity: 1;
     height: auto;
+    margin-top: 2rem;
+    width: 100%;
 }

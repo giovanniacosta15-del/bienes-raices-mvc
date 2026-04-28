@@ -8,7 +8,7 @@
     h3 {
         margin: .5rem 0 1rem;
         color: $grisOscuro;
-        font-weight: $regular;
+        font-weight: 800;
         line-height: 1.2;
     }
 
@@ -44,7 +44,7 @@
 .entrada-detalle__imagen {
     overflow: hidden;
     border-radius: .8rem;
-    box-shadow: 0 1.6rem 4rem rgba($negro, .12);
+    box-shadow: 0 1.6rem 4rem rgba($azulProfundo, .12);
 
     img {
         aspect-ratio: 16 / 11;
@@ -84,7 +84,7 @@
         position: absolute;
         inset: 0;
         z-index: -1;
-        background: linear-gradient(90deg, rgba($negro, .72), rgba($negro, .28));
+        background: linear-gradient(90deg, rgba($azulProfundo, .78), rgba($azulProfundo, .3));
     }
 
     &__contenido {
@@ -148,9 +148,9 @@
         margin-bottom: 0;
         overflow: hidden;
         background-color: $blanco;
-        border: 1px solid lighten($gris, 4);
+        border: 1px solid $borde;
         border-radius: .8rem;
-        box-shadow: 0 1rem 3rem rgba($negro, .08);
+        box-shadow: 0 1rem 3rem rgba($azulProfundo, .08);
 
         .imagen {
             border-radius: 0;
@@ -184,9 +184,9 @@
     .entrada-blog {
         padding: 1.4rem;
         background-color: $blanco;
-        border: 1px solid lighten($gris, 4);
+        border: 1px solid $borde;
         border-radius: .8rem;
-        box-shadow: 0 1rem 3rem rgba($negro, .06);
+        box-shadow: 0 1rem 3rem rgba($azulProfundo, .06);
     }
 }
 
@@ -211,9 +211,9 @@
         margin-top: 3rem;
         padding: 3rem;
         background-color: $blanco;
-        border: 1px solid lighten($gris, 4);
+        border: 1px solid $borde;
         border-radius: .8rem;
-        box-shadow: 0 1rem 3rem rgba($negro, .07);
+        box-shadow: 0 1rem 3rem rgba($azulProfundo, .07);
 
         p {
             color: lighten($grisOscuro, 8);
@@ -238,9 +238,9 @@
 .formulario-contacto {
     padding: 2.4rem;
     background-color: $blanco;
-    border: 1px solid lighten($gris, 4);
+    border: 1px solid $borde;
     border-radius: .8rem;
-    box-shadow: 0 1rem 3rem rgba($negro, .08);
+    box-shadow: 0 1rem 3rem rgba($azulProfundo, .08);
 
     @include tablet {
         padding: 3rem;
@@ -253,6 +253,14 @@
         &:last-of-type {
             margin-bottom: 0;
         }
+    }
+}
+
+.login-admin {
+    max-width: 58rem;
+
+    .formulario-contacto {
+        margin-top: 2rem;
     }
 }
 

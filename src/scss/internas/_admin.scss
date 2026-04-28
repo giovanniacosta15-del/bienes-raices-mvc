@@ -5,6 +5,7 @@
     font-weight: $bold;
     text-transform: uppercase;
     margin: 1rem 0;
+    border-radius: .6rem;
 
     &.error {
         background-color: $rojo;
@@ -35,9 +36,9 @@
     margin-top: 3rem;
     padding: 2rem;
     background-color: $blanco;
-    border: 1px solid lighten($gris, 4);
+    border: 1px solid $borde;
     border-radius: .8rem;
-    box-shadow: 0 1rem 3rem rgba($negro, .07);
+    box-shadow: 0 1rem 3rem rgba($azulProfundo, .07);
 
     @include tablet {
         padding: 2.5rem;
@@ -86,7 +87,7 @@ table.propiedades {
     min-width: 72rem;
 
     thead {
-        background-color: darken($verde, 5);
+        background-color: $azul;
 
         th {
             color: $blanco;
@@ -106,7 +107,7 @@ table.propiedades {
             }
 
             &:hover {
-                background-color: lighten($verde, 58);
+                background-color: rgba($azul, .05);
             }
         }
 
@@ -169,9 +170,9 @@ table.propiedades {
         margin-top: 2rem;
         padding: 2.4rem;
         background-color: $blanco;
-        border: 1px solid lighten($gris, 4);
+        border: 1px solid $borde;
         border-radius: .8rem;
-        box-shadow: 0 1rem 3rem rgba($negro, .08);
+        box-shadow: 0 1rem 3rem rgba($azulProfundo, .08);
 
         @include tablet {
             padding: 3rem;

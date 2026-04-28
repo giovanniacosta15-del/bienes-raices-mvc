@@ -38,13 +38,15 @@ class Router {
         // Proteger las rutas
         if(in_array($urlActual, $rutas_protegidas) && !$auth) {
             header('Location: /');
+            exit;
         }
 
         if($fn) {
             // la url existe y hay una funcion asociada
             call_user_func($fn, $this);
         } else {
-            echo "Página No Encontrada";
+            http_response_code(404);
+            echo "Pagina no encontrada";
         }
     }
 

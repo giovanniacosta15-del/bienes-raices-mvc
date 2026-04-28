@@ -11,7 +11,7 @@ class Vendedor extends ActiveRecord {
     public $apellido;
     public $telefono;
 
-     public function __construct($args = [])
+    public function __construct($args = [])
     {
        $this->id = $args['id'] ?? null;
        $this->nombre = $args['nombre'] ?? '';
@@ -20,19 +20,22 @@ class Vendedor extends ActiveRecord {
     }
 
     public function validar() {
+        self::$errores = [];
+
         if(!$this->nombre) {
-            self::$errores[] = "El nombre es Obligatorio";
+            self::$errores[] = "El nombre es obligatorio";
         }
+
         if(!$this->apellido) {
-            self::$errores[] = "El apellido es Obligatorio";
+            self::$errores[] = "El apellido es obligatorio";
         }
 
         if(!$this->telefono) {
-            self::$errores[] = "El teléfono es Obligatorio";
+            self::$errores[] = "El teléfono es obligatorio";
         }
 
-        if(!preg_match('/[0-9]{10}/', $this->telefono)) {
-            self::$errores[] = "Formato no Válido";
+        if($this->telefono && !preg_match('/^[0-9]{10}$/', $this->telefono)) {
+            self::$errores[] = "Formato no válido. Usa 10 dígitos";
         }
 
         return self::$errores;

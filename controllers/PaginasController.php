@@ -5,10 +5,10 @@ namespace Controllers;
 use MVC\Router;
 use Model\Propiedad;
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class PaginasController {
-    public static function index( Router $router ) {
-
+    public static function index(Router $router) {
         $propiedades = Propiedad::get(3);
         $inicio = true;
 
@@ -17,103 +17,177 @@ class PaginasController {
             'inicio' => $inicio
         ]);
     }
-    public static function nosotros(  Router $router ) {
+
+    public static function nosotros(Router $router) {
         $router->render('paginas/nosotros');
     }
-    public static function propiedades( Router $router ) {
+
+    public static function propiedades(Router $router) {
         $propiedades = Propiedad::all();
 
         $router->render('paginas/propiedades', [
             'propiedades' => $propiedades
         ]);
     }
-    public static function propiedad( Router $router ) {
+
+    public static function propiedad(Router $router) {
         $id = validarORedireccionar('/propiedades');
 
-        // buscar la propiedad por su id
         $propiedad = Propiedad::find($id);
+
+        if(!$propiedad) {
+            header('Location: /propiedades');
+            exit;
+        }
 
         $router->render('paginas/propiedad', [
             'propiedad' => $propiedad
         ]);
     }
-    public static function blog( Router $router ) {
+
+    public static function blog(Router $router) {
         $router->render('paginas/blog');
     }
 
-    public static function entrada( Router $router ) {
+    public static function entrada(Router $router) {
         $router->render('paginas/entrada');
     }
 
-    public static function contacto( Router $router ) {
-
+    public static function contacto(Router $router) {
         $mensaje = null;
+        $tipoMensaje = null;
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $respuestas = array_map('trim', $_POST['contacto'] ?? []);
+            $errores = self::validarContacto($respuestas);
 
-            $respuestas = $_POST['contacto'];
+            if(empty($errores)) {
+                $mail = new PHPMailer(true);
 
-            
-            // Crear una instancia de PHPMailer
-            $mail = new PHPMailer();
+                try {
+                    $mail->isSMTP();
+                    $mail->Host = 'sandbox.smtp.mailtrap.io';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'cc95b7132bfecb';
+                    $mail->Password = '9fa95359e76b42';
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port = 2525;
 
-            // Configurar SMTP
-            $mail->isSMTP();
-            $mail->Host = 'sandbox.smtp.mailtrap.io';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'cc95b7132bfecb';
-            $mail->Password = '9fa95359e76b42';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 2525;
+                    $mail->setFrom('admin@bienesraices.com', 'Bienes Raices');
+                    $mail->addAddress('admin@bienesraices.com', 'Bienes Raices');
+                    $mail->Subject = 'Nuevo mensaje desde el formulario de contacto';
+                    $mail->CharSet = 'UTF-8';
+                    $mail->isHTML(true);
 
-            // Configurar el contenido del mail
-            $mail->setFrom('admin@bienesraices.com');
-            $mail->addAddress('admin@bienesraices.com', 'BienesRaices.com');
-            $mail->Subject = 'Tienes un Nuevo Mensaje';
+                    $mail->Body = self::crearContenidoContacto($respuestas);
+                    $mail->AltBody = self::crearContenidoTextoContacto($respuestas);
 
-            // Habilitar HTML
-            $mail->isHTML(true);
-            $mail->CharSet = 'UTF-8';
+                    $mail->send();
 
-            // Definir el contenido
-            $contenido = '<html>';
-            $contenido .= '<p>Tienes un nuevo mensaje</p>';
-            $contenido .= '<p>Nombre: ' . $respuestas['nombre'] . ' </p>';
-            
-
-            // Enviar de forma condicional algunos campos de email o teléfono
-            if($respuestas['contacto'] === 'telefono') {
-                $contenido .='<p>Eligió ser contactado por Teléfono:</p>';
-                $contenido .= '<p>Teléfono: ' . $respuestas['telefono'] . ' </p>';
-                $contenido .= '<p>Fecha Contacto: ' . $respuestas['fecha'] . ' </p>';
-                $contenido .= '<p>Hora: ' . $respuestas['hora'] . ' </p>';
+                    $mensaje = 'Mensaje enviado correctamente';
+                    $tipoMensaje = 'exito';
+                } catch(Exception $e) {
+                    $mensaje = 'El mensaje no se pudo enviar. Error de Mailtrap: ' . $mail->ErrorInfo;
+                    $tipoMensaje = 'error';
+                }
             } else {
-                // Es email, entonces agregamos el campo de email
-                $contenido .='<p>Eligió ser contactado por email:</p>';
-                $contenido .= '<p>Email: ' . $respuestas['email'] . ' </p>';
-            }
-
-            
-            $contenido .= '<p>Mensaje: ' . $respuestas['mensaje'] . ' </p>';
-            $contenido .= '<p>Vende o Compra: ' . $respuestas['tipo'] . ' </p>';
-            $contenido .= '<p>Precio o Presupuesto:  $' . $respuestas['precio'] . ' </p>';
-            $contenido .= '<p>Prefiere ser contactado por:' . $respuestas['contacto'] . ' </p>';
-            
-            $contenido .= '</html>';
-
-            $mail->Body = $contenido;
-            $mail->AltBody = 'Esto es texto alternativo sin HTML';
-
-            // Enviar el email
-            if($mail->send()) {
-                $mensaje = "Mensaje enviado Correctamente";
-            } else {
-                $mensaje = "El mensaje no se pudo enviar....";
+                $mensaje = implode(' ', $errores);
+                $tipoMensaje = 'error';
             }
         }
 
         $router->render('paginas/contacto', [
-            'mensaje' => $mensaje
+            'mensaje' => $mensaje,
+            'tipoMensaje' => $tipoMensaje
         ]);
+    }
+
+    private static function validarContacto(array $respuestas) {
+        $errores = [];
+
+        if(empty($respuestas['nombre'])) {
+            $errores[] = 'El nombre es obligatorio.';
+        }
+
+        if(empty($respuestas['mensaje'])) {
+            $errores[] = 'El mensaje es obligatorio.';
+        }
+
+        if(empty($respuestas['tipo'])) {
+            $errores[] = 'Selecciona una operacion.';
+        }
+
+        if(!isset($respuestas['precio']) || $respuestas['precio'] === '') {
+            $errores[] = 'El precio o presupuesto es obligatorio.';
+        }
+
+        if(empty($respuestas['contacto'])) {
+            $errores[] = 'Selecciona una preferencia de contacto.';
+        }
+
+        if(($respuestas['contacto'] ?? '') === 'telefono') {
+            if(empty($respuestas['telefono'])) {
+                $errores[] = 'El telefono es obligatorio.';
+            }
+
+            if(empty($respuestas['fecha'])) {
+                $errores[] = 'La fecha de contacto es obligatoria.';
+            }
+
+            if(empty($respuestas['hora'])) {
+                $errores[] = 'La hora de contacto es obligatoria.';
+            }
+        }
+
+        if(($respuestas['contacto'] ?? '') === 'email') {
+            if(empty($respuestas['email']) || !filter_var($respuestas['email'], FILTER_VALIDATE_EMAIL)) {
+                $errores[] = 'Ingresa un email valido.';
+            }
+        }
+
+        return $errores;
+    }
+
+    private static function crearContenidoContacto(array $respuestas) {
+        $contenido = '<html><body>';
+        $contenido .= '<h2>Nuevo mensaje desde Bienes Raices</h2>';
+        $contenido .= '<p><strong>Nombre:</strong> ' . s($respuestas['nombre'] ?? '') . '</p>';
+        $contenido .= '<p><strong>Mensaje:</strong> ' . nl2br(s($respuestas['mensaje'] ?? '')) . '</p>';
+        $contenido .= '<p><strong>Operacion:</strong> ' . s($respuestas['tipo'] ?? '') . '</p>';
+        $contenido .= '<p><strong>Precio o presupuesto:</strong> $' . s($respuestas['precio'] ?? '') . '</p>';
+        $contenido .= '<p><strong>Preferencia de contacto:</strong> ' . s($respuestas['contacto'] ?? '') . '</p>';
+
+        if(($respuestas['contacto'] ?? '') === 'telefono') {
+            $contenido .= '<p><strong>Telefono:</strong> ' . s($respuestas['telefono'] ?? '') . '</p>';
+            $contenido .= '<p><strong>Fecha:</strong> ' . s($respuestas['fecha'] ?? '') . '</p>';
+            $contenido .= '<p><strong>Hora:</strong> ' . s($respuestas['hora'] ?? '') . '</p>';
+        } else {
+            $contenido .= '<p><strong>Email:</strong> ' . s($respuestas['email'] ?? '') . '</p>';
+        }
+
+        $contenido .= '</body></html>';
+
+        return $contenido;
+    }
+
+    private static function crearContenidoTextoContacto(array $respuestas) {
+        $lineas = [
+            'Nuevo mensaje desde Bienes Raices',
+            'Nombre: ' . ($respuestas['nombre'] ?? ''),
+            'Mensaje: ' . ($respuestas['mensaje'] ?? ''),
+            'Operacion: ' . ($respuestas['tipo'] ?? ''),
+            'Precio o presupuesto: $' . ($respuestas['precio'] ?? ''),
+            'Preferencia de contacto: ' . ($respuestas['contacto'] ?? ''),
+        ];
+
+        if(($respuestas['contacto'] ?? '') === 'telefono') {
+            $lineas[] = 'Telefono: ' . ($respuestas['telefono'] ?? '');
+            $lineas[] = 'Fecha: ' . ($respuestas['fecha'] ?? '');
+            $lineas[] = 'Hora: ' . ($respuestas['hora'] ?? '');
+        } else {
+            $lineas[] = 'Email: ' . ($respuestas['email'] ?? '');
+        }
+
+        return implode(PHP_EOL, $lineas);
     }
 }

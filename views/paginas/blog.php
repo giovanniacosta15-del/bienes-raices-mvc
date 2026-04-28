@@ -8,11 +8,11 @@
             'descripcion' => 'Consejos para construir una terraza con buenos materiales, mejor distribucion y un presupuesto inteligente.'
         ],
         [
-            'titulo' => 'Guia para la decoracion de tu hogar',
+            'titulo' => 'Guía para la decoración de tu hogar',
             'fecha' => '04/11/2025',
             'imagen' => 'blog2',
             'alt' => 'Sala decorada con estilo moderno',
-            'descripcion' => 'Maximiza el espacio en tu hogar con ideas simples para combinar muebles, iluminacion y colores.'
+            'descripcion' => 'Maximiza el espacio en tu hogar con ideas simples para combinar muebles, iluminación y colores.'
         ],
         [
             'titulo' => 'Ideas de jardines pequeños para tu hogar',
@@ -26,16 +26,16 @@
             'fecha' => '04/11/2025',
             'imagen' => 'blog4',
             'alt' => 'Baño renovado con acabados modernos',
-            'descripcion' => 'Trucos de iluminacion, pintura y accesorios para renovar tu baño sin gastar demasiado.'
+            'descripcion' => 'Trucos de iluminación, pintura y accesorios para renovar tu baño sin gastar demasiado.'
         ],
     ];
 ?>
 
 <main class="contenedor seccion blog-listado">
     <div class="encabezado-seccion">
-        <p class="eyebrow">Inspiracion inmobiliaria</p>
+        <p class="eyebrow">Inspiración inmobiliaria</p>
         <h1>Nuestro blog</h1>
-        <p>Ideas practicas para cuidar, renovar y disfrutar mejor tus espacios.</p>
+        <p>Ideas prácticas para cuidar, renovar y disfrutar mejor tus espacios.</p>
     </div>
 
     <div class="blog-listado__grid">

@@ -39,14 +39,15 @@ class ActiveRecord {
         // Insertar en la base de datos
         $query = " INSERT INTO " . static::$tabla . " ( ";
         $query .= join(', ', array_keys($atributos));
-        $query .= " ) VALUES (' ";
+        $query .= " ) VALUES ('";
         $query .= join("', '", array_values($atributos));
-        $query .= " ') ";
+        $query .= "') ";
 
         $resultado = self::$db->query($query);
 
         if($resultado) {
             header('Location: /admin?resultado=1');
+            exit;
         }
       
     }
@@ -70,6 +71,7 @@ class ActiveRecord {
         if($resultado) {
             // Redireccionar al usuario
             header('Location: /admin?resultado=2');
+            exit;
         }
     }
 
@@ -81,6 +83,7 @@ class ActiveRecord {
         if($resultado) {
             $this->borrarImagen();
             header('location: /admin?resultado=3');
+            exit;
         }
     }
 
@@ -120,6 +123,10 @@ class ActiveRecord {
 
     // Elimina el archivo
     public function borrarImagen() {
+        if(!$this->imagen) {
+            return;
+        }
+
         //Comprobar si existe el archivo
         $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
         if($existeArchivo) {
@@ -158,6 +165,7 @@ class ActiveRecord {
 
     // Busca un registro por su id
     public static function find($id) {
+        $id = self::$db->escape_string($id);
         $query = "SELECT * FROM " . static::$tabla . " WHERE id = {$id}";
 
         $resultado = self::consultarSQL($query);
@@ -167,6 +175,10 @@ class ActiveRecord {
     public static function consultarSQL($query) {
         // Consultar la base de datos
         $resultado = self::$db->query($query);
+
+        if(!$resultado) {
+            return [];
+        }
 
         // Iterar los resultados
         $array = [];

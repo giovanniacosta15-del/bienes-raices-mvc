@@ -1,12 +1,12 @@
 <fieldset>
-    <legend>Informacion general</legend>
+    <legend>Información general</legend>
 
-    <label for="titulo">Titulo</label>
+    <label for="titulo">Título</label>
     <input
         type="text"
         id="titulo"
         name="propiedad[titulo]"
-        placeholder="Titulo de la propiedad"
+        placeholder="Título de la propiedad"
         value="<?php echo s($propiedad->titulo); ?>">
 
     <label for="precio">Precio</label>
@@ -31,12 +31,12 @@
         </div>
     <?php } ?>
 
-    <label for="descripcion">Descripcion</label>
-    <textarea id="descripcion" name="propiedad[descripcion]" placeholder="Describe ubicacion, espacios y beneficios principales"><?php echo s($propiedad->descripcion); ?></textarea>
+    <label for="descripcion">Descripción</label>
+    <textarea id="descripcion" name="propiedad[descripcion]" placeholder="Describe ubicación, espacios y beneficios principales"><?php echo s($propiedad->descripcion); ?></textarea>
 </fieldset>
 
 <fieldset>
-    <legend>Caracteristicas</legend>
+    <legend>Características</legend>
 
     <label for="habitaciones">Habitaciones</label>
     <input

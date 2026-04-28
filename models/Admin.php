@@ -14,17 +14,19 @@ class Admin extends ActiveRecord {
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
-        $this->email = $args['email'] ?? '';
+        $this->email = strtolower(trim($args['email'] ?? ''));
         $this->password = $args['password'] ?? '';
     }
 
     public function validar() {
+        self::$errores = [];
+
         if(!$this->email) {
-            self::$errores[] = 'El Email es obligatorio';
+            self::$errores[] = 'El email es obligatorio';
         }
 
         if(!$this->password) {
-            self::$errores[] = 'El Password es obligatorio';
+            self::$errores[] = 'El password es obligatorio';
         }
 
         return self::$errores;
@@ -32,12 +34,13 @@ class Admin extends ActiveRecord {
 
     public function existeUsuario() {
         // Revisar si un usuario existe o no
-        $query = "SELECT * FROM " . self::$tabla . " WHERE email = '" . $this->email . "' LIMIT 1";
+        $email = self::$db->escape_string($this->email);
+        $query = "SELECT * FROM " . self::$tabla . " WHERE email = '" . $email . "' LIMIT 1";
 
         $resultado = self::$db->query($query);
 
-        if(!$resultado->num_rows) {
-            self::$errores[] = 'El Usuario no existe';
+        if(!$resultado || !$resultado->num_rows) {
+            self::$errores[] = 'El usuario no existe';
             return;
         }
         return $resultado;
@@ -48,11 +51,24 @@ class Admin extends ActiveRecord {
 
         $autenticado = password_verify($this->password, $usuario->password);
 
+        if(!$autenticado && hash_equals($usuario->password, $this->password)) {
+            $autenticado = true;
+            $this->actualizarPasswordLegacy($usuario->id);
+        }
+
         if(!$autenticado) {
-            self::$errores[] = 'El Password es Incorrecto';
+            self::$errores[] = 'El password es incorrecto';
         }
 
         return $autenticado;
+     }
+
+     private function actualizarPasswordLegacy($id) {
+        $id = self::$db->escape_string($id);
+        $passwordHash = self::$db->escape_string(password_hash($this->password, PASSWORD_BCRYPT));
+
+        $query = "UPDATE " . self::$tabla . " SET password = '{$passwordHash}' WHERE id = '{$id}' LIMIT 1";
+        self::$db->query($query);
      }
 
      public function autenticar() {
@@ -62,5 +78,6 @@ class Admin extends ActiveRecord {
         $_SESSION['login'] = true;
 
         header('Location: /admin');
+        exit;
      }
 }

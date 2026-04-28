@@ -26,7 +26,7 @@
         <p class="eyebrow">Asesoria personalizada</p>
         <h2>Encuentra la casa de tus sueños</h2>
         <p>Completa el formulario y un asesor se pondrá en contacto contigo a la brevedad.</p>
-        <a href="/contacto" class="boton-amarillo">Contactanos</a>
+        <a href="/contacto" class="boton-amarillo">Contáctanos</a>
     </div>
 </section>
 
@@ -66,7 +66,7 @@
 
             <div class="texto-entrada">
                 <a href="/entrada">
-                    <h4>Guia para la decoracion de tu hogar</h4>
+                    <h4>Guía para la decoración de tu hogar</h4>
                     <p class="informacion-meta">Escrito el: <span>04/11/2025</span> por: <span>Admin</span></p>
                     <p>Aprende a combinar muebles, iluminación y colores para aprovechar mejor cada espacio.</p>
                 </a>

@@ -23,8 +23,8 @@
                     <img src="/build/img/logo.png" alt="Logotipo de Bienes Raices">
                 </a>
 
-                <button class="mobile-menu" type="button" aria-label="Abrir menu">
-                    <img src="/build/img/barras.svg" alt="">
+                <button class="mobile-menu" type="button" aria-label="Abrir menu" aria-expanded="false">
+                    <img src="/build/img/barras.png" alt="">
                 </button>
 
                 <div class="derecha">

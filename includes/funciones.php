@@ -11,8 +11,9 @@ function incluirTemplate( string  $nombre, bool $inicio = false ) {
 function estaAutenticado() {
     session_start();
 
-    if(!$_SESSION['login']) {
+    if(!($_SESSION['login'] ?? false)) {
         header('Location: /');
+        exit;
     }
 }
 
@@ -25,7 +26,7 @@ function debuguear($variable) {
 
 // Escapa / sanitizar el HTML
 function s($html) : string {
-    $s = htmlspecialchars($html);
+    $s = htmlspecialchars((string) $html, ENT_QUOTES, 'UTF-8');
     return $s;
 }
 
@@ -60,11 +61,12 @@ function mostrarNotificaciones($codigo) {
 
 function validarORedireccionar(string $url) {
     // Validar la URL por ID válida
-    $id = $_GET['id'];
+    $id = $_GET['id'] ?? null;
     $id = filter_var($id, FILTER_VALIDATE_INT);
 
     if(!$id) {
         header("Location: {$url}");
+        exit;
     }
 
     return $id;

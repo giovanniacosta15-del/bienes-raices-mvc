@@ -43,7 +43,7 @@ class vendedorController {
                 $args = $_POST['vendedor'];
 
                 // Sincronizar objeto en memoria con lo que el usuario escribió
-                $vendedor->sincronizar();
+                $vendedor->sincronizar($args);
 
                 // Validación
                 $errores = $vendedor->validar();
@@ -69,12 +69,15 @@ class vendedorController {
                 // valida el tipo a eliminar
                 $tipo = $_POST['tipo'];
 
-                if(validarORedireccionar($tipo)) {
+                if(validarTipoContenido($tipo)) {
                     $vendedor = Vendedor::find($id);
                     $vendedor->eliminar();
                 }
 
             }
         }
+
+        header('Location: /admin');
+        exit;
     }
 }

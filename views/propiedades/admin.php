@@ -83,7 +83,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Telefono</th>
+                        <th>Teléfono</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>

@@ -1,6 +1,6 @@
 <main class="contenedor seccion contenido-centrado entrada-detalle">
-    <p class="eyebrow">Decoracion</p>
-    <h1>Guia para la decoracion de tu hogar</h1>
+    <p class="eyebrow">Decoración</p>
+    <h1>Guía para la decoración de tu hogar</h1>
 
     <p class="informacion-meta">Escrito el: <span>06/11/2025</span> por: <span>Admin</span></p>
 

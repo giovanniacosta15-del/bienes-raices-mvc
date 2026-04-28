@@ -8,23 +8,35 @@
     legend {
         font-size: 2rem;
         color: $grisOscuro;
+        font-weight: 700;
     }
 
     label {
-        font-weight: $bold;
+        font-weight: 700;
         text-transform: uppercase;
         display: block;
+        color: $grisOscuro;
+        font-size: 1.3rem;
+        letter-spacing: .02em;
     }
     input:not([type="submit"]),
     textarea,
     select {
-        padding: 1rem;
+        padding: 1.2rem 1.4rem;
         display: block;
         width: 100%;
         background-color: $blanco;
-        border: 1px solid $gris;
-        border-radius: 1rem;
+        border: 1px solid $borde;
+        border-radius: .6rem;
         margin-bottom: 2rem;
+        color: $texto;
+        transition: border-color .2s ease, box-shadow .2s ease;
+
+        &:focus {
+            border-color: rgba($azul, .55);
+            box-shadow: 0 0 0 .3rem rgba($azul, .1);
+            outline: 0;
+        }
     }
 
     textarea {
@@ -40,5 +52,59 @@
     input[type="radio"] {
         margin: 0;
         width: auto;
+    }
+}
+
+.campo-password {
+    position: relative;
+
+    input {
+        padding-right: 5rem !important;
+    }
+
+    .toggle-password {
+        position: absolute;
+        top: .7rem;
+        right: .7rem;
+        display: grid;
+        width: 3.8rem;
+        height: 3.8rem;
+        place-items: center;
+        padding: 0;
+        background-color: transparent;
+        border: 0;
+        color: $textoSuave;
+        cursor: pointer;
+
+        svg {
+            width: 2.1rem;
+            height: 2.1rem;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.8;
+        }
+
+        .icono-ocultar {
+            display: none;
+        }
+
+        &.is-visible {
+            color: $azul;
+
+            .icono-ver {
+                display: none;
+            }
+
+            .icono-ocultar {
+                display: block;
+            }
+        }
+
+        &:focus-visible {
+            outline: 2px solid $amarillo;
+            outline-offset: .2rem;
+        }
     }
 }

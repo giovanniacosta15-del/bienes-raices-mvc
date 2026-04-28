@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 // Fuentes
-$fuente_principal: 'Lato', sans-serif;
+$fuente_principal: 'Inter', sans-serif;
 
 // Tamaño de Media Queries
 $telefono: 480px;
@@ -10,12 +10,18 @@ $desktop: 1024px;
 
 // Colores
 $negro: #000000;
-$amarillo: #E08709;;
-$verde: #71B100;
+$amarillo: #B88746;
+$verde: #276749;
 $blanco: #FFFFFF;
-$gris: #e1e1e1;
-$grisOscuro: #333333;
-$rojo: rgb(189, 7, 7);
+$gris: #E5E7EB;
+$grisOscuro: #172033;
+$rojo: #B42318;
+$azulProfundo: #0F172A;
+$azul: #1F3A5F;
+$texto: #243044;
+$textoSuave: #64748B;
+$fondo: #F6F7F9;
+$borde: #D8DEE8;
 
 $separacion: 5rem;
 
